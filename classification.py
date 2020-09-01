@@ -118,7 +118,7 @@ print("img shape :", img.shape)
 
 single_prediction = probability_model(img)
 
-plt.figure("using prediction model")
+plt.figure("using prediction model", figsize=(2, 1))
 plt.subplot(1, 2, 1)
 plot_img(1, single_prediction[0], test_labels, test_images)
 plt.subplot(1, 2, 2)
