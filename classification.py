@@ -5,6 +5,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+from time import time
+from tensorflow.python.keras.callbacks import TensorBoard
+
+tensorboard = TensorBoard(log_dir="logs\{}".format(time()))
+
 # plt playground
 def show_rand_img():
     n = random.randint(0, 59999)
@@ -72,8 +77,8 @@ plt.show()
 # set up the layers
 model = keras.Sequential(layers=[
     keras.layers.Flatten(input_shape=(28, 28)),
-    keras.layers.Dense(128, activation='relu'),
-    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(128, activation='sigmoid'),
+    keras.layers.Dense(128, activation='sigmoid'),
     keras.layers.Dense(10)
 ], name="NeuralNetwork")
 
@@ -85,7 +90,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 # training model
-model.fit(train_images, train_labels, epochs=10)
+model.fit(train_images, train_labels, epochs=10, callbacks=[tensorboard])
 
 # evaluate model
 test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
